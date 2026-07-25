@@ -67,7 +67,7 @@ export default async function ProfilPage() {
             selatan. Padukuhan Mandingan dikepalai oleh <strong>Bapak Suradi Wiyono</strong> dan
             memiliki wilayah yang meliputi 4 Rukun Tetangga (RT).
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[
               { label: "Luas Wilayah", value: "41,9 Ha" },
               { label: "Luas Pemukiman", value: "14,28 Ha" },

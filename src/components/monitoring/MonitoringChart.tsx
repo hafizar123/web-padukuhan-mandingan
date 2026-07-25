@@ -57,7 +57,8 @@ export default function MonitoringChart({ barriers }: { barriers: Barrier[] }) {
   }
 
   return (
-    <div className="bg-white rounded-xl border p-6">
+    <div className="bg-white rounded-xl border p-4 md:p-6 overflow-x-auto">
+      <div className="min-w-[360px]">
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -89,6 +90,7 @@ export default function MonitoringChart({ barriers }: { barriers: Barrier[] }) {
         </LineChart>
       </ResponsiveContainer>
       <p className="text-xs text-gray-400 text-center mt-2">Data 30 hari terakhir</p>
+      </div>
     </div>
   );
 }

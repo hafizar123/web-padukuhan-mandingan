@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   LayoutDashboard, Users, Newspaper, Calendar,
-  Trash2, Phone, LogOut, Home, UserCircle, Network
+  Trash2, Phone, LogOut, Home, UserCircle, Network, Menu, X
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
@@ -26,74 +26,112 @@ const navItems = [
   { href: "/admin/akun", icon: UserCircle, label: "Akun Saya" },
 ];
 
-export default function AdminSidebar() {
+interface AdminSidebarProps {
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
+}
+
+export default function AdminSidebar({ mobileOpen = false, onMobileClose }: AdminSidebarProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [showLogout, setShowLogout] = useState(false);
 
+  const sidebarContent = (
+    <aside className="w-64 h-full bg-green-800 text-white flex flex-col">
+      {/* Logo */}
+      <div className="px-5 py-4 border-b border-green-700 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-3 text-white font-bold">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-mandingan.png" alt="Logo" className="w-10 h-10 object-contain shrink-0" />
+          <div className="min-w-0">
+            <p className="text-sm font-bold leading-tight whitespace-nowrap">Padukuhan Mandingan</p>
+            <p style={{ fontFamily: "var(--font-javanese)" }} className="text-xs text-green-300 tracking-wider leading-tight">
+              ꦥꦢꦸꦏꦸꦲꦤ꧀ꦩꦤ꧀ꦢꦶꦔꦤ꧀
+            </p>
+          </div>
+        </Link>
+        {/* Close button — visible only on mobile */}
+        <button
+          className="lg:hidden text-green-200 hover:text-white ml-2 shrink-0"
+          onClick={onMobileClose}
+          aria-label="Tutup menu"
+        >
+          <X size={20} />
+        </button>
+      </div>
+
+      {/* User Info */}
+      {session?.user && (
+        <div className="px-5 py-3 border-b border-green-700">
+          <p className="text-sm font-semibold truncate">{session.user.name}</p>
+          <p className="text-xs text-green-300">{session.user.role === "ADMIN" ? "Admin" : session.user.role}</p>
+        </div>
+      )}
+
+      {/* Nav */}
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        {navItems.map((item) => {
+          const active = pathname === item.href;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onMobileClose}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                active
+                  ? "bg-green-600 text-white"
+                  : "text-green-100 hover:bg-green-700"
+              }`}
+            >
+              <item.icon size={16} />
+              {item.label}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Bottom */}
+      <div className="p-3 border-t border-green-700 space-y-1">
+        <Link
+          href="/"
+          onClick={onMobileClose}
+          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-green-100 hover:bg-green-700"
+        >
+          <Home size={16} /> Lihat Website
+        </Link>
+        <Button
+          variant="ghost"
+          className="w-full justify-start text-green-100 hover:bg-green-700 hover:text-white px-3"
+          onClick={() => setShowLogout(true)}
+        >
+          <LogOut size={16} className="mr-3" /> Logout
+        </Button>
+      </div>
+    </aside>
+  );
+
   return (
     <>
-      <aside className="w-64 min-h-screen bg-green-800 text-white flex flex-col shrink-0">
-        {/* Logo */}
-        <div className="px-5 py-4 border-b border-green-700">
-          <Link href="/" className="flex items-center gap-3 text-white font-bold">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-mandingan.png" alt="Logo" className="w-10 h-10 object-contain shrink-0" />
-            <div className="min-w-0">
-              <p className="text-sm font-bold leading-tight whitespace-nowrap">Padukuhan Mandingan</p>
-              <p style={{ fontFamily: "var(--font-javanese)" }} className="text-xs text-green-300 tracking-wider leading-tight">
-                ꦥꦢꦸꦏꦸꦲꦤ꧀ꦩꦤ꧀ꦢꦶꦔꦤ꧀
-              </p>
-            </div>
-          </Link>
-        </div>
+      {/* Desktop sidebar — always visible on lg+ */}
+      <div className="hidden lg:flex w-64 min-h-screen shrink-0">
+        {sidebarContent}
+      </div>
 
-        {/* User Info */}
-        {session?.user && (
-          <div className="px-5 py-3 border-b border-green-700">
-            <p className="text-sm font-semibold truncate">{session.user.name}</p>
-            <p className="text-xs text-green-300">{session.user.role === "ADMIN" ? "Admin" : session.user.role}</p>
+      {/* Mobile drawer overlay */}
+      {mobileOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          {/* Semi-transparent backdrop */}
+          <div
+            className="fixed inset-0 bg-black/50"
+            onClick={onMobileClose}
+            aria-hidden="true"
+          />
+          {/* Drawer */}
+          <div className="relative z-10 flex flex-col h-full">
+            {sidebarContent}
           </div>
-        )}
-
-        {/* Nav */}
-        <nav className="flex-1 p-3 space-y-1">
-          {navItems.map((item) => {
-            const active = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  active
-                    ? "bg-green-600 text-white"
-                    : "text-green-100 hover:bg-green-700"
-                }`}
-              >
-                <item.icon size={16} />
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Bottom */}
-        <div className="p-3 border-t border-green-700 space-y-1">
-          <Link
-            href="/"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-green-100 hover:bg-green-700"
-          >
-            <Home size={16} /> Lihat Website
-          </Link>
-          <Button
-            variant="ghost"
-            className="w-full justify-start text-green-100 hover:bg-green-700 hover:text-white px-3"
-            onClick={() => setShowLogout(true)}
-          >
-            <LogOut size={16} className="mr-3" /> Logout
-          </Button>
         </div>
-      </aside>
+      )}
 
       {/* Logout Confirmation Dialog */}
       <Dialog open={showLogout} onOpenChange={setShowLogout}>
@@ -135,5 +173,17 @@ export default function AdminSidebar() {
         </DialogContent>
       </Dialog>
     </>
+  );
+}
+
+export function AdminSidebarMobileToggle({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+      onClick={onClick}
+      aria-label="Buka menu sidebar"
+    >
+      <Menu size={22} />
+    </button>
   );
 }
