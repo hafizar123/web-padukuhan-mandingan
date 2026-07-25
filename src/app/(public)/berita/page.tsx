@@ -2,13 +2,15 @@ import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 
 export const metadata = { title: "Berita & Pengumuman - Padukuhan Mandingan" };
 
+type BeritaItem = Awaited<ReturnType<typeof prisma.berita.findMany>>[number];
+type PengumumanItem = Awaited<ReturnType<typeof prisma.pengumuman.findMany>>[number];
+
 export default async function BeritaPage() {
-  let berita: Awaited<ReturnType<typeof prisma.berita.findMany>> = [];
-  let pengumuman: Awaited<ReturnType<typeof prisma.pengumuman.findMany>> = [];
+  let berita: BeritaItem[] = [];
+  let pengumuman: PengumumanItem[] = [];
   try {
     [berita, pengumuman] = await Promise.all([
       prisma.berita.findMany({ where: { published: true }, orderBy: { createdAt: "desc" } }),
@@ -24,12 +26,11 @@ export default async function BeritaPage() {
       </p>
       <Separator className="mb-8" />
 
-      {/* Pengumuman */}
       {pengumuman.length > 0 && (
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Pengumuman Terkini</h2>
           <div className="space-y-3">
-            {pengumuman.map((p) => (
+            {pengumuman.map((p: PengumumanItem) => (
               <div key={p.id} className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
                 <div className="flex items-start justify-between gap-2">
                   <div>
@@ -49,12 +50,11 @@ export default async function BeritaPage() {
         </section>
       )}
 
-      {/* Berita */}
       <section>
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Berita Desa</h2>
         {berita.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {berita.map((item) => (
+            {berita.map((item: BeritaItem) => (
               <Card key={item.id} className="overflow-hidden hover:shadow-md transition-shadow">
                 {item.thumbnail && (
                   <div className="h-44 overflow-hidden bg-gray-100">

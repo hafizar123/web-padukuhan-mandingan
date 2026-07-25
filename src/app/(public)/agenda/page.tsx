@@ -5,10 +5,12 @@ import { Calendar, MapPin } from "lucide-react";
 
 export const metadata = { title: "Agenda - Padukuhan Mandingan" };
 
+type AgendaItem = Awaited<ReturnType<typeof prisma.agenda.findMany>>[number];
+
 export default async function AgendaPage() {
   const now = new Date();
-  let mendatang: Awaited<ReturnType<typeof prisma.agenda.findMany>> = [];
-  let selesai: Awaited<ReturnType<typeof prisma.agenda.findMany>> = [];
+  let mendatang: AgendaItem[] = [];
+  let selesai: AgendaItem[] = [];
   try {
     [mendatang, selesai] = await Promise.all([
       prisma.agenda.findMany({ where: { tanggal: { gte: now } }, orderBy: { tanggal: "asc" } }),
@@ -24,12 +26,11 @@ export default async function AgendaPage() {
       </p>
       <Separator className="mb-8" />
 
-      {/* Agenda Mendatang */}
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Agenda Mendatang</h2>
         {mendatang.length > 0 ? (
           <div className="space-y-4">
-            {mendatang.map((a: (typeof mendatang)[0]) => (
+            {mendatang.map((a: AgendaItem) => (
               <div key={a.id} className="bg-green-50 border border-green-200 rounded-xl p-5">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="font-semibold text-gray-800 text-lg">{a.judul}</h3>
@@ -58,12 +59,11 @@ export default async function AgendaPage() {
         )}
       </section>
 
-      {/* Agenda Selesai */}
       {selesai.length > 0 && (
         <section>
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Agenda Selesai</h2>
           <div className="space-y-3">
-            {selesai.map((a: (typeof selesai)[0]) => (
+            {selesai.map((a: AgendaItem) => (
               <div key={a.id} className="bg-gray-50 border border-gray-200 rounded-xl p-4">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="font-medium text-gray-700">{a.judul}</h3>

@@ -41,7 +41,7 @@ export default async function MonitoringPage() {
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Status Terkini</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {barriers.map((b) => {
+          {barriers.map((b: (typeof barriers)[0]) => {
             const last = b.reports[0];
             const vol = last ? volumeConfig[last.volume] : null;
             return (
