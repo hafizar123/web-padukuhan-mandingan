@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+}
+
+enum VolumeLevel {
+  RENDAH
+  SEDANG
+  TINGGI
+  PENUH
+}
+
+// ==================== AUTH ====================
+
+model Admin {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reports   TrashReport[]
+  sessions  Session[]
+
+  @@map("admins")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  adminId   String
+  admin     Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("sessions")
+}
+
+// ==================== PROFIL DESA ====================
+
+model ProfilDesa {
+  id           String   @id @default(cuid())
+  sejarah      String   @db.Text
+  visiMisi     String   @db.Text
+  luasWilayah  String?
+  jumlahDusun  Int?
+  tahunBerdiri String?
+  updatedAt    DateTime @updatedAt
+
+  @@map("profil_desa")
+}
+
+model StrukturOrganisasi {
+  id        String   @id @default(cuid())
+  nama      String
+  jabatan   String
+  foto      String?
+  urutan    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("struktur_organisasi")
+}
+
+model FotoDesa {
+  id          String   @id @default(cuid())
+  judul       String
+  url         String
+  keterangan  String?
+  createdAt   DateTime @default(now())
+
+  @@map("foto_desa")
+}
+
+// ==================== KEPENDUDUKAN ====================
+
+model DataKependudukan {
+  id              String   @id @default(cuid())
+  rt              Int      @unique // 1, 2, 3, 4
+  jumlahKK        Int
+  jumlahPenduduk  Int
+  lakiLaki        Int
+  perempuan       Int
+  updatedAt       DateTime @updatedAt
+
+  @@map("data_kependudukan")
+}
+
+// ==================== BERITA & PENGUMUMAN ====================
+
+model Berita {
+  id          String   @id @default(cuid())
+  judul       String
+  konten      String   @db.Text
+  thumbnail   String?
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("berita")
+}
+
+model Pengumuman {
+  id          String   @id @default(cuid())
+  judul       String
+  konten      String   @db.Text
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("pengumuman")
+}
+
+// ==================== AGENDA ====================
+
+model Agenda {
+  id          String   @id @default(cuid())
+  judul       String
+  deskripsi   String?  @db.Text
+  tanggal     DateTime
+  lokasi      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("agenda")
+}
+
+// ==================== KONTAK ====================
+
+model Kontak {
+  id        String   @id @default(cuid())
+  nama      String
+  jabatan   String
+  rt        Int?     // null = perangkat desa, 1-4 = ketua RT
+  noHp      String?
+  email     String?
+  urutan    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("kontak")
+}
+
+// ==================== POTENSI ====================
+
+model Potensi {
+  id          String   @id @default(cuid())
+  nama        String
+  kategori    String   // pertanian | peternakan | kesenian | wisata
+  lokasi      String?
+  pimpinan    String?
+  deskripsi   String   @db.Text
+  foto        String[] @default([])
+  urutan      Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("potensi")
+}
+
+// ==================== TRASH BARRIER ====================
+
+model TrashBarrier {
+  id        String   @id @default(cuid())
+  nama      String   // misal: "Barrier Parit A"
+  rt        Int      // 2 atau 3
+  lokasi    String?  // deskripsi lokasi
+  latitude  Float?
+  longitude Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reports   TrashReport[]
+
+  @@map("trash_barriers")
+}
+
+model TrashReport {
+  id         String      @id @default(cuid())
+  barrierId  String
+  barrier    TrashBarrier @relation(fields: [barrierId], references: [id], onDelete: Cascade)
+  adminId    String
+  admin      Admin        @relation(fields: [adminId], references: [id])
+  volume     VolumeLevel
+  foto       String?
+  catatan    String?
+  createdAt  DateTime    @default(now())
+
+  @@map("trash_reports")
+}
