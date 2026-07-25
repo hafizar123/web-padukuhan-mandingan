@@ -52,7 +52,7 @@ export default async function PetaPage() {
         <section>
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Lokasi Trash Barrier</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {barriers.map((b) => {
+            {barriers.map((b: (typeof barriers)[number]) => {
               const lastReport = b.reports[0];
               return (
                 <div key={b.id} className="bg-white border rounded-xl p-4 shadow-sm">

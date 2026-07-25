@@ -5,6 +5,16 @@ import { getDataKependudukan, getTotalKependudukan } from "@/lib/data-kependuduk
 
 export const metadata = { title: "Kependudukan - Padukuhan Mandingan" };
 
+type DataRTItem = {
+  id: string;
+  rt: number;
+  jumlahKK: number;
+  jumlahPenduduk: number;
+  lakiLaki: number;
+  perempuan: number;
+  [key: string]: unknown;
+};
+
 const rtColors = [
   { bg: "bg-green-50", border: "border-green-200", accent: "bg-green-600", text: "text-green-700" },
   { bg: "bg-blue-50",  border: "border-blue-200",  accent: "bg-blue-600",  text: "text-blue-700"  },
@@ -51,7 +61,7 @@ export default async function KependudukanPage() {
       <section className="mb-12">
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Detail per RT</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {dataRT.map((d, i) => {
+          {dataRT.map((d: DataRTItem, i) => {
             const c = rtColors[i % rtColors.length];
             const laki = d.lakiLaki;
             const perempuan = d.perempuan;
