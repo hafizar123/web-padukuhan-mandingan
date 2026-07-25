@@ -12,6 +12,9 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Padukuhan Mandingan",
   description: "Website Resmi Padukuhan Mandingan",
+  verification: {
+    google: "z8RpOJvCcAsSEXOndJ1Abhv_dGlY5knHPYgpR4t1MM0",
+  },
 };
 
 export default function RootLayout({
