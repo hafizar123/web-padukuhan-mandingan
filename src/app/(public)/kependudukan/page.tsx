@@ -61,7 +61,7 @@ export default async function KependudukanPage() {
       <section className="mb-12">
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Detail per RT</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {dataRT.map((d: DataRTItem, i) => {
+          {dataRT.map((d: DataRTItem, i: number) => {
             const c = rtColors[i % rtColors.length];
             const laki = d.lakiLaki;
             const perempuan = d.perempuan;
