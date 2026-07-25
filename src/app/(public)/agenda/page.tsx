@@ -29,7 +29,7 @@ export default async function AgendaPage() {
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Agenda Mendatang</h2>
         {mendatang.length > 0 ? (
           <div className="space-y-4">
-            {mendatang.map((a) => (
+            {mendatang.map((a: (typeof mendatang)[0]) => (
               <div key={a.id} className="bg-green-50 border border-green-200 rounded-xl p-5">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="font-semibold text-gray-800 text-lg">{a.judul}</h3>
@@ -63,7 +63,7 @@ export default async function AgendaPage() {
         <section>
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Agenda Selesai</h2>
           <div className="space-y-3">
-            {selesai.map((a) => (
+            {selesai.map((a: (typeof selesai)[0]) => (
               <div key={a.id} className="bg-gray-50 border border-gray-200 rounded-xl p-4">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="font-medium text-gray-700">{a.judul}</h3>
