@@ -6,6 +6,7 @@ import MonitoringChart from "@/components/monitoring/MonitoringChart";
 import RiwayatLaporan from "@/components/monitoring/RiwayatLaporan";
 
 export const metadata = { title: "Monitoring Trash Barrier - Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 const volumeConfig: Record<string, { label: string; color: string }> = {
   RENDAH: { label: "Rendah", color: "bg-green-100 text-green-700" },

@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { Phone, Mail, MapPin, User } from "lucide-react";
 
 export const metadata = { title: "Kontak - Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 // Data fallback dukuh
 const dukuhFallback = {

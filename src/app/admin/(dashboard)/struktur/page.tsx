@@ -4,6 +4,7 @@ import { Pencil } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = { title: "Struktur Organisasi - Admin Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 // Data fallback kalau DB belum terisi
 const strukturFallback = [

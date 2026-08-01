@@ -5,6 +5,7 @@ import Link from "next/link";
 import DeleteButton from "@/components/admin/DeleteButton";
 
 export const metadata = { title: "Potensi - Admin Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 const kategoriBadge: Record<string, string> = {
   pertanian: "bg-green-100 text-green-700",

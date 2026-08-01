@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import PengumumanForm from "@/components/admin/PengumumanForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function EditPengumumanPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const pengumuman = await prisma.pengumuman.findUnique({ where: { id } });

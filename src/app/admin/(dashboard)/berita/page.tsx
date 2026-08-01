@@ -5,6 +5,7 @@ import { Plus, Pencil } from "lucide-react";
 import DeleteButton from "@/components/admin/DeleteButton";
 
 export const metadata = { title: "Berita & Pengumuman - Admin Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 export default async function AdminBeritaPage() {
   let berita: Awaited<ReturnType<typeof prisma.berita.findMany>> = [];

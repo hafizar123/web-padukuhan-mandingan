@@ -4,6 +4,7 @@ import { Users, Home, User, UserRound } from "lucide-react";
 import { getDataKependudukan, getTotalKependudukan } from "@/lib/data-kependudukan";
 
 export const metadata = { title: "Kependudukan - Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 type DataRTItem = {
   id: string;

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin } from "lucide-react";
 
 export const metadata = { title: "Agenda - Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 type AgendaItem = Awaited<ReturnType<typeof prisma.agenda.findMany>>[number];
 

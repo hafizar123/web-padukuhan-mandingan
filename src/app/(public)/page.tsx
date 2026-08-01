@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { getTotalKependudukan } from "@/lib/data-kependudukan";
 import { MapPin, Users, Newspaper, Calendar, Trash2, Phone, Sprout } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 async function getBeritaTerbaru() {
   try {
     return await prisma.berita.findMany({

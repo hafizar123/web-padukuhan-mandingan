@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import InputLaporanForm from "@/components/admin/InputLaporanForm";
 
 export const metadata = { title: "Trash Barrier - Admin Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 export default async function AdminMonitoringPage() {
   const session = await auth();

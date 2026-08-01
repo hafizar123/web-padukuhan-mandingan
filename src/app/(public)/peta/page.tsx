@@ -5,6 +5,7 @@ import { MapPin } from "lucide-react";
 import PetaMap from "@/components/peta/PetaMap";
 
 export const metadata = { title: "Peta Padukuhan - Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 export default async function PetaPage() {
   let barriers: Awaited<ReturnType<typeof prisma.trashBarrier.findMany<{ include: { reports: { orderBy: { createdAt: "desc" }, take: 1 } } }>>> = [];

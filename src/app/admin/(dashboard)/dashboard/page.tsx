@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { Users, Newspaper, Calendar, Trash2 } from "lucide-react";
 
 export const metadata = { title: "Dashboard Admin - Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const session = await auth();

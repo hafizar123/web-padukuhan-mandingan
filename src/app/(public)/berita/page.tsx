@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
 export const metadata = { title: "Berita & Pengumuman - Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 type BeritaItem = Awaited<ReturnType<typeof prisma.berita.findMany>>[number];
 type PengumumanItem = Awaited<ReturnType<typeof prisma.pengumuman.findMany>>[number];

@@ -5,6 +5,7 @@ import Link from "next/link";
 import DeleteButton from "@/components/admin/DeleteButton";
 
 export const metadata = { title: "Agenda - Admin Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 export default async function AdminAgendaPage() {
   let agenda: Awaited<ReturnType<typeof prisma.agenda.findMany>> = [];

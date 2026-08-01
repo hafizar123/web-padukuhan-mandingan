@@ -3,6 +3,7 @@ import { Wheat, Beef, Music, Landmark } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
 export const metadata = { title: "Potensi Padukuhan - Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 const kategori = [
   { id: "pertanian", label: "Pertanian", icon: Wheat, color: "bg-green-100 text-green-700 border-green-200" },

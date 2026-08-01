@@ -3,6 +3,7 @@ import { Users } from "lucide-react";
 import KependudukanForm from "@/components/admin/KependudukanForm";
 
 export const metadata = { title: "Kependudukan - Admin Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 export default async function AdminKependudukanPage() {
   let data: Awaited<ReturnType<typeof prisma.dataKependudukan.findMany>> = [];

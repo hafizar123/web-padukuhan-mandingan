@@ -3,6 +3,7 @@ import { Phone, Mail, User } from "lucide-react";
 import EditKontakDukuhForm from "@/components/admin/EditKontakDukuhForm";
 
 export const metadata = { title: "Kontak - Admin Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 export default async function AdminKontakPage() {
   let dukuh: { id: string; nama: string; jabatan: string; noHp: string | null; email: string | null } | null = null;

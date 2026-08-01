@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import PotensiForm from "@/components/admin/PotensiForm";
 
 export const metadata = { title: "Edit Potensi - Admin Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 export default async function EditPotensiPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

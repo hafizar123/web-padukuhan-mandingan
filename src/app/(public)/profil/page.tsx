@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { User } from "lucide-react";
 
 export const metadata = { title: "Profil Padukuhan - Padukuhan Mandingan" };
+export const dynamic = "force-dynamic";
 
 const strukturFallback = [
   { id: "1", jabatan: "Lurah", nama: "Marjiyem", urutan: 1, foto: null, level: "top" },
