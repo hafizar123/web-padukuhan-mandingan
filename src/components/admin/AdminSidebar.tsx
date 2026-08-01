@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   LayoutDashboard, Users, Newspaper, Calendar,
-  Trash2, Phone, LogOut, Home, UserCircle, Network, Menu, X
+  Trash2, Phone, LogOut, Home, UserCircle, Network, Menu, X, Sprout
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
@@ -19,6 +19,7 @@ const navItems = [
   { href: "/admin/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/admin/struktur", icon: Network, label: "Struktur Organisasi" },
   { href: "/admin/kependudukan", icon: Users, label: "Kependudukan" },
+  { href: "/admin/potensi", icon: Sprout, label: "Potensi Padukuhan" },
   { href: "/admin/berita", icon: Newspaper, label: "Berita & Pengumuman" },
   { href: "/admin/agenda", icon: Calendar, label: "Agenda" },
   { href: "/admin/kontak", icon: Phone, label: "Kontak" },
