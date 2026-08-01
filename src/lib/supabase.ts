@@ -5,13 +5,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-/**
- * Upload file ke Supabase Storage
- * @param file - File yang akan diupload
- * @param bucket - Nama bucket (misal: "trash-reports", "foto-desa")
- * @param path - Path file di dalam bucket
- * @returns URL publik file atau null jika gagal
- */
+// Upload file ke Supabase Storage, return public URL atau null kalau gagal
 export async function uploadFile(
   file: File,
   bucket: string,

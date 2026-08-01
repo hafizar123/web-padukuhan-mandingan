@@ -1,6 +1,4 @@
-// Data kependudukan hardcode sebagai fallback
-// Akan digantikan data dari DB kalau sudah terkonek
-
+// Fallback statis kalau DB tidak mengembalikan data
 export const dataKependudukanFallback = [
   { id: "1", rt: 1, kkLaki: 61, kkPerempuan: 12, jumlahKK: 73, lakiLaki: 104, perempuan: 107, jumlahPenduduk: 211 },
   { id: "2", rt: 2, kkLaki: 24, kkPerempuan: 8,  jumlahKK: 32, lakiLaki: 44,  perempuan: 44,  jumlahPenduduk: 88  },
