@@ -36,7 +36,6 @@ export default function PotensiForm({ existing }: { existing?: Potensi }) {
     lokasi: existing?.lokasi ?? "",
     pimpinan: existing?.pimpinan ?? "",
     deskripsi: existing?.deskripsi ?? "",
-    urutan: existing?.urutan ?? 0,
   });
 
   // Array of uploaded URLs (already saved or just uploaded)
@@ -44,7 +43,7 @@ export default function PotensiForm({ existing }: { existing?: Potensi }) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: name === "urutan" ? Number(value) : value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +82,7 @@ export default function PotensiForm({ existing }: { existing?: Potensi }) {
     const res = await fetch(url, {
       method: existing ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, foto: fotoUrls }),
+      body: JSON.stringify({ ...form, foto: fotoUrls, urutan: 0 }),
     });
 
     setLoading(false);
@@ -148,13 +147,6 @@ export default function PotensiForm({ existing }: { existing?: Potensi }) {
               rows={8}
               placeholder="Deskripsi lengkap tentang potensi ini..."
             />
-          </div>
-
-          {/* Urutan */}
-          <div className="space-y-1">
-            <Label>Urutan Tampil</Label>
-            <Input type="number" name="urutan" value={form.urutan} onChange={handleChange} min={0} className="w-32" />
-            <p className="text-xs text-gray-400">Angka kecil tampil lebih dulu. Default: 0</p>
           </div>
 
           {/* Foto */}
